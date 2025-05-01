@@ -15,15 +15,7 @@
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-200">
-<?php if(isset($_GET['success'])): ?>
-    <div class="bg-green-500 text-white text-center py-3 px-4">
-        ✅ Your message has been sent successfully!
-    </div>
-<?php elseif(isset($_GET['error'])): ?>
-    <div class="bg-red-500 text-white text-center py-3 px-4">
-        ❌ Something went wrong. Please try again.
-    </div>
-<?php endif; ?>
+
 
   <div id="root">
     <!-- Navigation Bar -->
@@ -706,6 +698,20 @@
         }
         setInterval(changeText, 2000);
     </script>
-
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("success") === "1") {
+        document.write("<div class='success'>Message sent successfully!</div>");
+      } else if (params.get("error") === "1") {
+        document.write("<div class='error'>Failed to send message.</div>");
+      }
+    
+      // Remove query parameters after displaying the message
+      if (params.has("success") || params.has("error")) {
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    </script>
+    
+    
 </body>
 </html>
